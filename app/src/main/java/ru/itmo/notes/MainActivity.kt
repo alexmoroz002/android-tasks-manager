@@ -42,12 +42,6 @@ class MainActivity : AppCompatActivity() {
                     val folder = Folder(reply)
                     foldersViewModel.insert(folder)
                 }
-            } else {
-                Toast.makeText(
-                    applicationContext,
-                    "Creation canceled",
-                    Toast.LENGTH_LONG
-                ).show()
             }
         }
 

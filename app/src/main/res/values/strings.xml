@@ -15,4 +15,6 @@
     <string name="folder_restore_desc">Allows you to restore deleted folders with notes inside</string>
     <string name="note_restore">Restore notes</string>
     <string name="note_restore_desc">Allows you to restore deleted individual notes</string>
+    <string name="note_untitled">Untitled</string>
+    <string name="error_simple">Error occurred</string>
 </resources>

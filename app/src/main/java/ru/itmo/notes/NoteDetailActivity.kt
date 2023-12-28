@@ -47,14 +47,14 @@ class NoteDetailActivity : AppCompatActivity() {
                         noteDetailViewModel.update(note)
                     }
                 }
-            } else {
-                Toast.makeText(applicationContext, "Edit canceled", Toast.LENGTH_LONG).show()
             }
         }
 
         val editButton = findViewById<Button>(R.id.edit)
         editButton.setOnClickListener {
             val newIntent = Intent(this@NoteDetailActivity, NewNoteActivity::class.java)
+            newIntent.putExtra("prevTitle", noteDetailViewModel.note.value?.title)
+            newIntent.putExtra("prevText", noteDetailViewModel.note.value?.text)
             editNote.launch(newIntent)
         }
 

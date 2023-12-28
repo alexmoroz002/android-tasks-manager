@@ -48,8 +48,6 @@ class NotesActivity : AppCompatActivity() {
                         notesViewModel.update(folder)
                     }
                 }
-            } else {
-                Toast.makeText(applicationContext, "Creation canceled", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -61,8 +59,6 @@ class NotesActivity : AppCompatActivity() {
                     val note = Note(title, text, folderId)
                     notesViewModel.insert(note)
                 }
-            } else {
-                Toast.makeText(applicationContext, "Renaming canceled", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -75,6 +71,7 @@ class NotesActivity : AppCompatActivity() {
         val editButton = findViewById<Button>(R.id.edit)
         editButton.setOnClickListener {
             val newIntent = Intent(this@NotesActivity, NewFolderActivity::class.java)
+            newIntent.putExtra("prevTitle", notesViewModel.folder.value?.title)
             editFolder.launch(newIntent)
         }
 
