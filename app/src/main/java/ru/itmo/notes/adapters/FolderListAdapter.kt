@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.itmo.notes.FolderCallback
+import ru.itmo.notes.callbacks.FolderCallback
 import ru.itmo.notes.R
-import ru.itmo.notes.models.Folder
+import ru.itmo.notes.entities.Folder
 
 class FolderListAdapter(private val callback: FolderCallback) : ListAdapter<Folder, FolderListAdapter.FolderViewHolder>(FoldersComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int

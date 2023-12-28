@@ -7,12 +7,14 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.itmo.notes.adapters.FolderListAdapter
-import ru.itmo.notes.models.Folder
+import ru.itmo.notes.callbacks.FolderCallback
+import ru.itmo.notes.entities.Folder
+import ru.itmo.notes.viewmodels.FoldersViewModel
+import ru.itmo.notes.viewmodels.FoldersViewModelFactory
 
 class MainActivity : AppCompatActivity() {
     private val foldersViewModel: FoldersViewModel by viewModels {

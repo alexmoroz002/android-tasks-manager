@@ -1,7 +1,7 @@
 package ru.itmo.notes.database
 
-import ru.itmo.notes.models.Folder
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.entities.Folder
+import ru.itmo.notes.entities.Note
 
 class NotesRepo(private val folderDao: FolderDao, private val noteDao: NoteDao) {
     fun getFolders() = folderDao.getFolders()

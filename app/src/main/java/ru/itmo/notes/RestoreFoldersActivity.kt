@@ -7,7 +7,10 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ru.itmo.notes.adapters.FolderListAdapter
-import ru.itmo.notes.models.Folder
+import ru.itmo.notes.callbacks.FolderCallback
+import ru.itmo.notes.entities.Folder
+import ru.itmo.notes.viewmodels.RestoreFoldersVM
+import ru.itmo.notes.viewmodels.RestoreFoldersVMFactory
 
 class RestoreFoldersActivity : AppCompatActivity() {
     private val foldersViewModel: RestoreFoldersVM by viewModels {

@@ -7,8 +7,8 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ru.itmo.notes.models.Folder
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.entities.Folder
+import ru.itmo.notes.entities.Note
 
 @Database(entities = [Folder::class, Note::class], version = 1, exportSchema = false)
 abstract class NotesDB : RoomDatabase() {

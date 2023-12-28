@@ -7,9 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.itmo.notes.NoteCallback
+import ru.itmo.notes.callbacks.NoteCallback
 import ru.itmo.notes.R
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.entities.Note
 
 class NoteListAdapter(private val callback: NoteCallback) : ListAdapter<Note, NoteListAdapter.NoteViewHolder>(NoteListAdapter.NotesComparator()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int

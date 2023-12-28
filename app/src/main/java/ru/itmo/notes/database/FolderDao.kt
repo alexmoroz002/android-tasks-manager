@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import ru.itmo.notes.models.Folder
+import ru.itmo.notes.entities.Folder
 
 @Dao
 interface FolderDao {

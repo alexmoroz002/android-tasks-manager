@@ -2,13 +2,13 @@ package ru.itmo.notes
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.viewmodels.NoteDetailViewModel
+import ru.itmo.notes.viewmodels.NoteDetailViewModelFactory
 
 class NoteDetailActivity : AppCompatActivity() {
     private var noteId: Int = 1

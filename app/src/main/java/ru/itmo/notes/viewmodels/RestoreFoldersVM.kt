@@ -1,4 +1,4 @@
-package ru.itmo.notes
+package ru.itmo.notes.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +7,7 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.itmo.notes.database.NotesRepo
-import ru.itmo.notes.models.Folder
+import ru.itmo.notes.entities.Folder
 
 class RestoreFoldersVM(private val repo: NotesRepo) : ViewModel() {
     val folders: LiveData<List<Folder>> = repo.getDeletedFolders().asLiveData()

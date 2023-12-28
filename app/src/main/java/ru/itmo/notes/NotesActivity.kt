@@ -12,7 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.itmo.notes.adapters.NoteListAdapter
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.callbacks.NoteCallback
+import ru.itmo.notes.entities.Note
+import ru.itmo.notes.viewmodels.NotesViewModel
+import ru.itmo.notes.viewmodels.NotesViewModelFactory
 
 class NotesActivity : AppCompatActivity() {
     private var folderId: Int = 1

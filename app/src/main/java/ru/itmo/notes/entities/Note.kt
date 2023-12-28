@@ -1,4 +1,4 @@
-package ru.itmo.notes.models
+package ru.itmo.notes.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

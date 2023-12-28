@@ -7,7 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.entities.Note
 
 @Dao
 interface NoteDao {

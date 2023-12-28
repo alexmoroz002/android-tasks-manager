@@ -1,13 +1,12 @@
-package ru.itmo.notes
+package ru.itmo.notes.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.itmo.notes.database.NotesRepo
-import ru.itmo.notes.models.Note
+import ru.itmo.notes.entities.Note
 
 class NoteDetailViewModel(private val repo: NotesRepo, private val noteId: Int) : ViewModel() {
     val note: LiveData<Note> = repo.getNoteById(noteId)
