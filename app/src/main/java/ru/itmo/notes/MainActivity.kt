@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,7 +21,6 @@ class MainActivity : AppCompatActivity() {
     private val foldersViewModel: FoldersViewModel by viewModels {
         FoldersViewModelFactory((application as NotesApplication).repo)
     }
-    private val newFolderRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,10 +36,25 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        val createFolder = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                it.data?.getStringExtra(NewFolderActivity.EXTRA_REPLY)?.let { reply ->
+                    val folder = Folder(reply)
+                    foldersViewModel.insert(folder)
+                }
+            } else {
+                Toast.makeText(
+                    applicationContext,
+                    "Creation canceled",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewFolderActivity::class.java)
-            startActivityForResult(intent, newFolderRequestCode)
+            createFolder.launch(intent)
         }
 
         val settingsButton = findViewById<Button>(R.id.settings)
@@ -50,23 +65,6 @@ class MainActivity : AppCompatActivity() {
 
         foldersViewModel.folders.observe(this) { folders ->
             folders?.let { adapter.submitList(it) }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
-
-        if (requestCode == newFolderRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.getStringExtra(NewFolderActivity.EXTRA_REPLY)?.let { reply ->
-                val folder = Folder(reply)
-                foldersViewModel.insert(folder)
-            }
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "Action aborted",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,8 +23,6 @@ class NotesActivity : AppCompatActivity() {
     private val notesViewModel: NotesViewModel by viewModels {
         NotesViewModelFactory((application as NotesApplication).repo, folderId)
     }
-    private val newNoteRequestCode = 1
-    private val editFolderRequestCode = 2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,16 +39,43 @@ class NotesActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
+        val editFolder = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                it.data?.getStringExtra(NewFolderActivity.EXTRA_REPLY)?.let { reply ->
+                    val folder = notesViewModel.folder.value
+                    if (folder != null) {
+                        folder.title = reply
+                        notesViewModel.update(folder)
+                    }
+                }
+            } else {
+                Toast.makeText(applicationContext, "Creation canceled", Toast.LENGTH_LONG).show()
+            }
+        }
+
+        val createNote = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            if (it.resultCode == Activity.RESULT_OK) {
+                val title = it.data?.getStringExtra(NewNoteActivity.TITLE_REPLY)
+                val text = it.data?.getStringExtra(NewNoteActivity.TEXT_REPLY)
+                if (title != null && text != null) {
+                    val note = Note(title, text, folderId)
+                    notesViewModel.insert(note)
+                }
+            } else {
+                Toast.makeText(applicationContext, "Renaming canceled", Toast.LENGTH_LONG).show()
+            }
+        }
+
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener {
-            val intent = Intent(this@NotesActivity, NewNoteActivity::class.java)
-            startActivityForResult(intent, newNoteRequestCode)
+            val newIntent = Intent(this@NotesActivity, NewNoteActivity::class.java)
+            createNote.launch(newIntent)
         }
 
         val editButton = findViewById<Button>(R.id.edit)
         editButton.setOnClickListener {
             val newIntent = Intent(this@NotesActivity, NewFolderActivity::class.java)
-            startActivityForResult(newIntent, editFolderRequestCode)
+            editFolder.launch(newIntent)
         }
 
         val deleteButton = findViewById<Button>(R.id.delete)
@@ -74,33 +100,6 @@ class NotesActivity : AppCompatActivity() {
 
         notesViewModel.notes.observe(this) { notes ->
             notes?.let { adapter.submitList(it) }
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {
-        super.onActivityResult(requestCode, resultCode, intentData)
-
-        if (requestCode == editFolderRequestCode && resultCode == Activity.RESULT_OK) {
-            intentData?.getStringExtra(NewFolderActivity.EXTRA_REPLY)?.let { reply ->
-                val folder = notesViewModel.folder.value
-                if (folder != null) {
-                    folder.title = reply
-                    notesViewModel.update(folder)
-                }
-            }
-        } else if (requestCode == newNoteRequestCode && resultCode == Activity.RESULT_OK) {
-            val title = intentData?.getStringExtra(NewNoteActivity.TITLE_REPLY)
-            val text = intentData?.getStringExtra(NewNoteActivity.TEXT_REPLY)
-            if (title != null && text != null) {
-                val note = Note(title, text, folderId)
-                notesViewModel.insert(note)
-            }
-        } else {
-            Toast.makeText(
-                applicationContext,
-                "Action aborted",
-                Toast.LENGTH_LONG
-            ).show()
         }
     }
 }
