@@ -11,9 +11,6 @@ import ru.itmo.notes.models.Folder
 
 @Dao
 interface FolderDao {
-//    @Query("select * from folders_table order by title asc")
-//    fun getAllFolders(): Flow<List<Folder>>
-
     @Query("select * from folders_table where is_deleted=0 order by title asc")
     fun getFolders(): Flow<List<Folder>>
 
@@ -26,6 +23,6 @@ interface FolderDao {
     @Query("select * from folders_table where id=:folderId")
     fun getFolderByID(folderId: Int): LiveData<Folder>
 
-//    @Query("delete from folders_table")
-//    suspend fun deleteAllFolders()
+    @Query("select * from folders_table where is_deleted=1 order by title asc")
+    fun getDeletedFolders(): Flow<List<Folder>>
 }

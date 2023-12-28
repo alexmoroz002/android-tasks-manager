@@ -40,8 +40,8 @@ abstract class NotesDB : RoomDatabase() {
             super.onCreate(db)
             INSTANCE?.let { database ->
                 scope.launch {
-                    var folderDao = database.folderDao()
-                    var noteDao = database.noteDao()
+                    val folderDao = database.folderDao()
+                    val noteDao = database.noteDao()
                     // Add sample words.
                     var item = Folder("Hello11")
                     folderDao.insertFolder(item)

@@ -39,6 +39,16 @@ class NoteDetailActivity : AppCompatActivity() {
             val newIntent = Intent(this@NoteDetailActivity, NewNoteActivity::class.java)
             startActivityForResult(newIntent, editNoteRequestCode)
         }
+
+        val deleteButton = findViewById<Button>(R.id.delete)
+        deleteButton.setOnClickListener {
+            val note = noteDetailViewModel.note.value
+            if (note != null) {
+                note.isDeleted = true
+                noteDetailViewModel.update(note)
+                finish()
+            }
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intentData: Intent?) {

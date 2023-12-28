@@ -3,6 +3,7 @@ package ru.itmo.notes
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,6 +38,12 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             val intent = Intent(this@MainActivity, NewFolderActivity::class.java)
             startActivityForResult(intent, newFolderRequestCode)
+        }
+
+        val settingsButton = findViewById<Button>(R.id.settings)
+        settingsButton.setOnClickListener {
+            val newIntent = Intent(this@MainActivity, SettingsActivity::class.java)
+            startActivity(newIntent)
         }
 
         foldersViewModel.folders.observe(this) { folders ->

@@ -14,6 +14,15 @@
         android:theme="@style/Theme.Notes"
         tools:targetApi="31">
         <activity
+            android:name=".RestoreFoldersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RestoreNotesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".NotesActivity"
             android:exported="false"
             android:label="@string/title_activity_notes"

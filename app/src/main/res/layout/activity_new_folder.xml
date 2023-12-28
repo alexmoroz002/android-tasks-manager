@@ -11,7 +11,7 @@
         style="@android:style/TextAppearance.Material.Display1"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Enter folder name"
+        android:text="@string/edit_folder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -20,19 +20,20 @@
         android:id="@+id/edit_word"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-light"
-        android:inputType="textAutoComplete"
-        android:textSize="18sp"
+        android:hint="@string/folder_title_hint"
+        android:inputType="text"
+        android:maxLength="30"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:text="Lorem ipsum ayaya testing" />
 
     <Button
         android:id="@+id/button_save"
         style="@style/Widget.Material3.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="save"
+        android:text="@string/save_btn_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_word" />
 

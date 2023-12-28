@@ -11,11 +11,12 @@ import ru.itmo.notes.models.Note
 
 @Dao
 interface NoteDao {
-//    @Query("select * from notes_table order by title asc")
-//    fun getAllNotes(): Flow<List<Note>>
 
     @Query("select * from notes_table where is_deleted=0 and folder_id=:folderId order by title asc")
     fun getNotes(folderId: Int): Flow<List<Note>>
+
+    @Query("select notes_table.* from notes_table inner join folders_table on folder_id = folders_table.id where notes_table.is_deleted=1 and folders_table.is_deleted=0 order by title asc")
+    fun getDeletedNotes(): Flow<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertNote(note: Note)
@@ -26,6 +27,6 @@ interface NoteDao {
     @Query("select * from notes_table where id=:noteId")
     fun getNoteByID(noteId: Int): LiveData<Note>
 
-//    @Query("delete from notes_table")
-//    suspend fun deleteAllNotes()
+    @Query("update notes_table set is_deleted=0 where folder_id=:folderId and is_deleted=1")
+    suspend fun restoreNotesByFolder(folderId: Int)
 }
