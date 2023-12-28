@@ -12,10 +12,10 @@ import ru.itmo.notes.entities.Note
 @Dao
 interface NoteDao {
 
-    @Query("select * from notes_table where is_deleted=0 and folder_id=:folderId order by title asc")
+    @Query("select * from notes_table where is_deleted=0 and folder_id=:folderId")
     fun getNotes(folderId: Int): Flow<List<Note>>
 
-    @Query("select notes_table.* from notes_table inner join folders_table on folder_id = folders_table.id where notes_table.is_deleted=1 and folders_table.is_deleted=0 order by title asc")
+    @Query("select notes_table.* from notes_table inner join folders_table on folder_id = folders_table.id where notes_table.is_deleted=1 and folders_table.is_deleted=0")
     fun getDeletedNotes(): Flow<List<Note>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

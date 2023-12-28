@@ -11,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.itmo.notes.adapters.NoteListAdapter
 import ru.itmo.notes.callbacks.NoteCallback
@@ -37,7 +38,8 @@ class NotesActivity : AppCompatActivity() {
             }
         })
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        val listLayout = StaggeredGridLayoutManager(2, RecyclerView.VERTICAL)
+        recyclerView.layoutManager = listLayout
 
         val editFolder = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             if (it.resultCode == Activity.RESULT_OK) {
